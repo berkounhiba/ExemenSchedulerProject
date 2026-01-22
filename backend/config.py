@@ -4,13 +4,26 @@ import os
 # ============================================
 # DATABASE CONFIGURATION
 # ============================================
-DB_CONFIG = {
-    'dbname': 'gestion_examens',
-    'user': 'postgres',
-    'password': os.getenv('DB_PASSWORD', '123a4567'),  # Change this!
-    'host': 'localhost',
-    'port': 5432
-}
+try:
+    
+    import streamlit as st
+    # Running on Streamlit Cloud - use secrets
+    DB_CONFIG = {
+        'dbname': st.secrets["database"]["database"],
+        'user': st.secrets["database"]["user"],
+        'password': st.secrets["database"]["password"],
+        'host': st.secrets["database"]["host"],
+        'port': st.secrets["database"].get("port", 5432)
+    }
+except (ImportError, FileNotFoundError, KeyError):
+    # Running locally - use local database
+    DB_CONFIG = {
+        'dbname': 'gestion_examens',
+        'user': 'postgres',
+        'password': os.getenv('DB_PASSWORD', '123a4567'),
+        'host': 'localhost',
+        'port': 5432
+    }
 
 def get_connection_string():
     """Returns PostgreSQL connection string"""
@@ -35,22 +48,6 @@ DATA_CONFIG = {
     'nb_exam_locations': 50,
 }
 
-# To scale up, uncomment this and comment above:
-# DATA_CONFIG = {
-#     'nb_departements': 7,
-#     'nb_specializations_per_dept': 2,
-#     'nb_formations_per_spec': 5,
-#     'nb_groups_per_formation': 2,
-#     'nb_modules_per_formation': 6,
-#     'nb_professeurs_per_dept': 15,
-#     'nb_etudiants_per_group': 50,
-#     'nb_exam_locations': 50,
-# }
-
-
-# ============================================
-# SCHEDULING CONFIGURATION
-# ============================================
 
 
 OPTIMIZATION_CONFIG = {
