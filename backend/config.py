@@ -16,14 +16,6 @@ try:
         'port': st.secrets["database"].get("port", 5432)
     }
 except (ImportError, FileNotFoundError, KeyError):
-    # Running locally - use local database
-   ''' DB_CONFIG = {
-        'dbname': 'gestion_examens',
-        'user': 'postgres',
-        'password': os.getenv('DB_PASSWORD', '123a4567'),
-        'host': 'localhost',
-        'port': 5432
-    }'''
    DB_CONFIG = {
     'dbname': 'neondb',
     'user': 'neondb_owner',
