@@ -141,8 +141,9 @@ def login_page():
             st.markdown("---")
             
             # Get departments
-            depts = execute_query_dict("SELECT id, nom FROM departements ORDER BY nom")
+            depts = execute_query_dict("SELECT id, nom FROM departements ORDER BY nom") or []
             dept_names = {d['nom']: d['id'] for d in depts}
+
             
             selected_dept = st.selectbox(
                 "🏢 Select Your Department:",
@@ -1074,18 +1075,21 @@ def show_admin_dashboard():
     
     with col1:
         result = execute_query("SELECT COUNT(*) FROM etudiants", fetch=True)
-        st.metric("👨‍🎓 Students", f"{result[0][0]:,}")
+        count = result[0][0] if result else 0
+        st.metric("👨‍🎓 Students", f"{count:,}")
     
     with col2:
         result = execute_query("SELECT COUNT(*) FROM professeurs", fetch=True)
-        st.metric("👨‍🏫 Professors", f"{result[0][0]:,}")
+        count = result[0][0] if result else 0
+        st.metric("👨‍🏫 Professors", f"{count:,}")
     
     with col3:
         result = execute_query(
             "SELECT COUNT(*) FROM examens WHERE statut = 'programmé'",
             fetch=True
         )
-        st.metric("📝 Scheduled", f"{result[0][0]:,}")
+        count = result[0][0] if result else 0
+        st.metric("📝 Scheduled", f"{count:,}")
     
     with col4:
         result = execute_query(

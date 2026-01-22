@@ -19,7 +19,6 @@ except (ImportError, FileNotFoundError, KeyError):
    DB_CONFIG = {
     'dbname': 'neondb',
     'user': 'neondb_owner',
-    'password': 'npg_YBn1PecdQDV9',
     'host': 'ep-little-frost-ahn9lgxm-pooler.c-3.us-east-1.aws.neon.tech',
     'port': 5432
 }
