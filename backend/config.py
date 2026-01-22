@@ -17,13 +17,20 @@ try:
     }
 except (ImportError, FileNotFoundError, KeyError):
     # Running locally - use local database
-    DB_CONFIG = {
+   ''' DB_CONFIG = {
         'dbname': 'gestion_examens',
         'user': 'postgres',
         'password': os.getenv('DB_PASSWORD', '123a4567'),
         'host': 'localhost',
         'port': 5432
-    }
+    }'''
+   DB_CONFIG = {
+    'dbname': 'neondb',
+    'user': 'neondb_owner',
+    'password': 'npg_YBn1PecdQDV9',
+    'host': 'ep-little-frost-ahn9lgxm-pooler.c-3.us-east-1.aws.neon.tech',
+    'port': 5432
+}
 
 def get_connection_string():
     """Returns PostgreSQL connection string"""
